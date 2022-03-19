@@ -19,9 +19,9 @@ jobs:
         run: npm ci
 
       - name: Build project
-        run: 
-          - PUBLIC_URL="https://nonlinearfruit.github.io/raindrop-ts/"
-          - npm run build
+        run: |
+          PUBLIC_URL="https://nonlinearfruit.github.io/raindrop-ts/"
+          npm run build
 
       - name: Upload production-ready build files
         uses: actions/upload-artifact@v2
