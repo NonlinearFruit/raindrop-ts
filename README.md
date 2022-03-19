@@ -5,3 +5,4 @@
  - Load fnm environment variables `eval "$(fnm env)"`
  - Install `node 16` (`fnm install 16`)
  - Start with `npm start`
+ - Find live at `https://nonlinearfruit.github.io/raindrop-ts/`
