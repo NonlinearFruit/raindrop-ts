@@ -10,11 +10,22 @@ function App() {
   );
 }
 
-class Square extends React.Component {
+type CardProps = {
+  value: string
+}
+
+class Square extends React.Component<CardProps, CardProps> {
+  constructor(props: CardProps) {
+    super(props);
+    this.state = {
+      value: "",
+    };
+  }
+
   render() {
     return (
-        <button className="square">
-          {}
+        <button className="square" onClick={() => this.setState({ value: "X" })}>
+          {this.state.value}
         </button>
     );
   }
@@ -22,7 +33,7 @@ class Square extends React.Component {
 
 class Board extends React.Component {
   renderSquare(i: number) {
-    return <Square />;
+    return <Square value={i.toString()}/>;
   }
 
   render() {
