@@ -10,30 +10,39 @@ function App() {
   );
 }
 
-type CardProps = {
-  value: string
+type SquareProps = {
+  value: string,
+  onClick(): void,
 }
 
-class Square extends React.Component<CardProps, CardProps> {
-  constructor(props: CardProps) {
+type BoardProps = {
+  value: string[]
+}
+
+function Square(props: SquareProps) {
+  return (
+      <button className="square" onClick={props.onClick}>
+        {props.value}
+      </button>
+  );
+}
+
+class Board extends React.Component<{}, BoardProps> {
+  constructor(props: {}) {
     super(props);
     this.state = {
-      value: "",
+      value: Array(9).fill(""),
     };
   }
 
-  render() {
-    return (
-        <button className="square" onClick={() => this.setState({ value: "X" })}>
-          {this.state.value}
-        </button>
-    );
+  handleClick(i: number) {
+    const squares = this.state.value.slice();
+    squares[i] = 'X';
+    this.setState({value: squares});
   }
-}
 
-class Board extends React.Component {
   renderSquare(i: number) {
-    return <Square value={i.toString()}/>;
+    return <Square value={this.state.value[i]} onClick={() => this.handleClick(i)}/>;
   }
 
   render() {
