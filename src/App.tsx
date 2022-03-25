@@ -17,7 +17,7 @@ type SquareProps = {
 }
 
 type BoardProps = {
-    value: string[],
+    squares: string[],
     xIsNext: boolean
 }
 
@@ -33,22 +33,22 @@ class Board extends React.Component<{}, BoardProps> {
     constructor(props: {}) {
         super(props);
         this.state = {
-            value: Array(9).fill(""),
+            squares: Array(9).fill(""),
             xIsNext: true
         };
     }
 
     handleClick(i: number) {
-        const squares = this.state.value.slice();
+        const squares = this.state.squares.slice();
         if (this.calculateWinner(squares) || squares[i]) {
             return;
         }
         squares[i] = this.state.xIsNext ? 'X' : 'O';
-        this.setState({value: squares, xIsNext: !this.state.xIsNext});
+        this.setState({squares: squares, xIsNext: !this.state.xIsNext});
     }
 
     renderSquare(i: number) {
-        return <Square value={this.state.value[i]} onClick={() => this.handleClick(i)}/>;
+        return <Square value={this.state.squares[i]} onClick={() => this.handleClick(i)}/>;
     }
 
     calculateWinner(squares: string[]): Nullable<string> {
@@ -72,7 +72,7 @@ class Board extends React.Component<{}, BoardProps> {
     }
 
     render() {
-        const winner = this.calculateWinner(this.state.value);
+        const winner = this.calculateWinner(this.state.squares);
         let status;
         if (winner) {
             status = 'Winner: ' + winner;
@@ -103,20 +103,18 @@ class Board extends React.Component<{}, BoardProps> {
     }
 }
 
-class Game extends React.Component {
-    render() {
-        return (
-            <div className="game">
-                <div className="game-board">
-                    <Board/>
-                </div>
-                <div className="game-info">
-                    <div>{/* status */}</div>
-                    <ol>{/* TODO */}</ol>
-                </div>
+function Game() {
+    return (
+        <div className="game">
+            <div className="game-board">
+                <Board/>
             </div>
-        );
-    }
+            <div className="game-info">
+                <div>{/* status */}</div>
+                <ol>{/* TODO */}</ol>
+            </div>
+        </div>
+    );
 }
 
 export default App;
